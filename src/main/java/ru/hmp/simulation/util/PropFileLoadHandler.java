@@ -1,4 +1,4 @@
-package ru.hmp.simulation;
+package ru.hmp.simulation.util;
 
 import java.util.ResourceBundle;
 

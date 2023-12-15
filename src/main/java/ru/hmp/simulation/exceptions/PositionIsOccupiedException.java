@@ -3,7 +3,7 @@ package ru.hmp.simulation.exceptions;
 import ru.hmp.simulation.map.Position;
 import ru.hmp.simulation.map.SimulationMap;
 
-public class PositionIsOccupiedException extends ApplicationException {
+public final class PositionIsOccupiedException extends ApplicationException {
 
     public PositionIsOccupiedException(String message) {
         super(message);

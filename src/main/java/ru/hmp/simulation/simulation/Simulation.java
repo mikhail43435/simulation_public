@@ -1,7 +1,15 @@
 package ru.hmp.simulation.simulation;
 
 public interface Simulation {
-    void runSimulation(int numOfCycles) throws InterruptedException;
+    int nextTurn();
 
-    void resetSimulation();
+    void run();
+
+    void run(int numOfCycles);
+
+    void stop();
+
+    void reset();
+
+    void render();
 }

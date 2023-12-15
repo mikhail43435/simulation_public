@@ -1,4 +1,4 @@
-package ru.hmp.simulation.useractions;
+package ru.hmp.simulation.usermenuactions;
 
 import ru.hmp.simulation.io.Input;
 import ru.hmp.simulation.io.InputHandler;
@@ -30,7 +30,7 @@ public final class ResetSimulationMapAction implements UserAction {
                 "Are you sure to reset simulation [y/n]: ");
 
         if (charIn == 'y' || charIn == 'Y') {
-            simulation.resetSimulation();
+            simulation.reset();
             output.println("Simulation has been reset");
         } else if (charIn == 'n' || charIn == 'N') {
             output.println("Simulation reset canceled");

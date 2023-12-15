@@ -1,5 +1,6 @@
 package ru.hmp.simulation.model;
 
+import ru.hmp.simulation.EntityFactory;
 import ru.hmp.simulation.map.Position;
 import ru.hmp.simulation.map.SimulationMap;
 import ru.hmp.simulation.pathsearch.PathSearchAlgo;
@@ -13,12 +14,13 @@ public abstract class Creature extends Entity {
     protected PathSearchAlgo pathSearchAlgo;
     protected Entity targetEntity;
     protected Deque<Position> pathToTarget;
-    protected int reproductionLimit;
+    protected int resourceConsumptionLimit;
+    protected int resourceConsumptionCounter;
 
-    protected Creature(SimulationMap simulationMap, PathSearchAlgo pathSearchAlgo, int reproductionLimit) {
+    protected Creature(SimulationMap simulationMap, PathSearchAlgo pathSearchAlgo, int resourceConsumptionLimit) {
         this.simulationMap = simulationMap;
         this.pathSearchAlgo = pathSearchAlgo;
-        this.reproductionLimit = reproductionLimit;
+        this.resourceConsumptionLimit = resourceConsumptionLimit;
     }
 
     protected boolean setPathToTarget(Entity targetEntity) {
@@ -34,21 +36,45 @@ public abstract class Creature extends Entity {
         return true;
     }
 
+    protected void createNewEntityNearBy(EntityTypes entityType) {
+        simulationMap.addEntityRightNextPosition(EntityFactory.createEntity(entityType,
+                simulationMap,
+                pathSearchAlgo,
+                resourceConsumptionLimit),
+                simulationMap.getEntityPosition(this));
+    }
+
     /**
      * Setting random entity form closest entities as a target
      *
      * @param entityType - type of entity to search
      * @return true - target has been set, false - there is no eligible targets on the map
      */
-    protected boolean setTargetOfGiveType(EntityTypes entityType) {
+    protected boolean setClosestTarget(EntityTypes entityType) {
         List<Entity> closesEntities =
-                simulationMap.getClosesEntitiesOfGivenType(simulationMap.getEntityPosition(this), entityType);
+                simulationMap.getClosestEntities(simulationMap.getEntityPosition(this), entityType);
 
         if (closesEntities.isEmpty()) {
             return false;
         }
-
         this.targetEntity = closesEntities.get(RANDOM.nextInt(closesEntities.size()));
+        return true;
+    }
+
+    /**
+     * Setting random entity form closest entities as a target
+     *
+     * @param entityType - type of entity to search
+     * @return true - target has been set, false - there is no eligible targets on the map
+     */
+    protected boolean setTargetInRange(EntityTypes entityType, int range) {
+        List<Entity> closesEntities =
+                simulationMap.getNClosestEntities(simulationMap.getEntityPosition(this), entityType, range);
+
+        if (closesEntities.isEmpty()) {
+            return false;
+        }
+        targetEntity = closesEntities.get(RANDOM.nextInt(closesEntities.size()));
         return true;
     }
 
@@ -65,14 +91,12 @@ public abstract class Creature extends Entity {
     public String toString() {
         String result = System.lineSeparator() + "Creature{" +
                 "Class=" + this.getClass().getSimpleName() + System.lineSeparator() +
-                " SimMap=" + simulationMap + System.lineSeparator() +
-                " pathSearchAlgo=" + pathSearchAlgo + System.lineSeparator() +
-                " targetEntity=" + targetEntity + System.lineSeparator() +
-                " pathToTarget=" + pathToTarget + System.lineSeparator() +
-                " reproductionLimit=" + reproductionLimit;
+                "       pathSearchAlgo=" + pathSearchAlgo + System.lineSeparator();
 
         if (simulationMap != null && simulationMap.isEntityOnMap(this)) {
-            result += System.lineSeparator() + " position on the map=" + simulationMap.getEntityPosition(this).toString();
+            result += System.lineSeparator()
+                    + "    position on the map="
+                    + simulationMap.getEntityPosition(this).toString();
         }
 
         result += '}';

@@ -1,6 +1,7 @@
 package ru.hmp.simulation.pathsearch.aasterisk;
 
 import ru.hmp.simulation.map.Position;
+import ru.hmp.simulation.map.PositionFactory;
 import ru.hmp.simulation.pathsearch.PathSearchAlgo;
 
 import java.util.*;
@@ -8,7 +9,7 @@ import java.util.*;
 /**
  * Source code was taken from https://codegym.cc/groups/posts/a-search-algorithm-in-java
  */
-public class AAsterisk implements PathSearchAlgo {
+public final class AAsterisk implements PathSearchAlgo {
 
     @Override
     public Optional<List<Position>> findPath(int[][] grid, Position startPosition, Position endPosition) {
@@ -64,7 +65,7 @@ public class AAsterisk implements PathSearchAlgo {
         while (!path.isEmpty()) {
             Pair p = path.peek();
             path.pop();
-            pathList.add(Position.of(p.yPoint, p.xPoint));
+            pathList.add(PositionFactory.of(p.yPoint, p.xPoint));
         }
         return pathList;
     }
@@ -169,8 +170,12 @@ public class AAsterisk implements PathSearchAlgo {
 
         @Override
         public boolean equals(Object o) {
-            if (this == o) return true;
-            if (!(o instanceof Pair)) return false;
+            if (this == o) {
+                return true;
+            }
+            if (!(o instanceof Pair)) {
+                return false;
+            }
             Pair pair = (Pair) o;
             return xPoint == pair.xPoint && yPoint == pair.yPoint;
         }

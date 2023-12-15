@@ -1,15 +1,15 @@
 package ru.hmp.simulation.exceptions;
 
-public class ApplicationException extends RuntimeException {
+public abstract class ApplicationException extends RuntimeException {
 
-    public ApplicationException() {
+    protected ApplicationException() {
     }
 
-    public ApplicationException(String message) {
+    protected ApplicationException(String message) {
         super(message);
     }
 
-    public ApplicationException(String message, Throwable cause) {
+    protected ApplicationException(String message, Throwable cause) {
         super(message, cause);
     }
 }

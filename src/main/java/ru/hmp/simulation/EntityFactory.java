@@ -1,7 +1,9 @@
 package ru.hmp.simulation;
 
 import ru.hmp.simulation.map.SimulationMap;
-import ru.hmp.simulation.model.*;
+import ru.hmp.simulation.model.Entity;
+import ru.hmp.simulation.model.EntityTypes;
+import ru.hmp.simulation.model.entities.*;
 import ru.hmp.simulation.pathsearch.PathSearchAlgo;
 
 import java.util.ArrayList;
@@ -18,7 +20,7 @@ public final class EntityFactory {
                                       int reproductionLimit) {
         Entity entity;
         switch (entityType) {
-            case PREDATOR -> entity = new Predator(simulationMap, pathSearchAlgo, 0);
+            case PREDATOR -> entity = new Predator(simulationMap, pathSearchAlgo, reproductionLimit);
             case HERBIVORE -> entity = new Herbivore(simulationMap, pathSearchAlgo, reproductionLimit);
             case ROCK -> entity = new Rock();
             case GRASS -> entity = new Grass();

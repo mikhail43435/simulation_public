@@ -3,7 +3,7 @@ package ru.hmp.simulation.exceptions;
 import ru.hmp.simulation.map.SimulationMap;
 import ru.hmp.simulation.model.Entity;
 
-public class NoFreeSpaceOnMapException extends ApplicationException {
+public final class NoFreeSpaceOnMapException extends ApplicationException {
 
     public NoFreeSpaceOnMapException(String message) {
         super(message);

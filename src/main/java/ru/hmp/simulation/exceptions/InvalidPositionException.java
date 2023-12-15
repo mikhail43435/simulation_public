@@ -1,6 +1,6 @@
 package ru.hmp.simulation.exceptions;
 
-public class InvalidPositionException extends ApplicationException {
+public final class InvalidPositionException extends ApplicationException {
 
     public InvalidPositionException(String message) {
         super(message);

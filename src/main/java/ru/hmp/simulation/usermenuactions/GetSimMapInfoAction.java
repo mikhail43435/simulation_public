@@ -1,4 +1,4 @@
-package ru.hmp.simulation.useractions;
+package ru.hmp.simulation.usermenuactions;
 
 import ru.hmp.simulation.io.Input;
 import ru.hmp.simulation.io.Output;
@@ -21,13 +21,20 @@ public final class GetSimMapInfoAction implements UserAction {
 
     @Override
     public boolean execute(Input input) {
+        output.printLineSeparator();
         output.println("=== Simulation map info ===");
-        output.println(String.format("x size: %d", simulationMap.getXMapSize()));
-        output.println(String.format("у size: %d", simulationMap.getYMapSize()));
-        output.println(String.format("number of points: %d", simulationMap.getXMapSize() * simulationMap.getYMapSize()));
-        output.println(String.format("cycle counter: %d", simulationMap.getCycleNumber()));
-        output.println(String.format("num of entities on the map: %d", simulationMap.getListOfEntityLeft().size()));
-        output.println("=== End of info ===");
+        output.println(getSimMapStatistic());
         return true;
+    }
+
+    private String getSimMapStatistic() {
+        StringBuilder sb = new StringBuilder(550);
+        simulationMap.getStatistic().
+                forEach((key, value) -> sb.
+                        append(key).
+                        append(": ").
+                        append(value).
+                        append(System.lineSeparator()));
+        return sb.toString();
     }
 }

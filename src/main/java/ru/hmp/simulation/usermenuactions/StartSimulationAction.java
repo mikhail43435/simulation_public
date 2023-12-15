@@ -1,4 +1,4 @@
-package ru.hmp.simulation.useractions;
+package ru.hmp.simulation.usermenuactions;
 
 import ru.hmp.simulation.exceptions.IdleSimulationException;
 import ru.hmp.simulation.exceptions.NoFreeSpaceOnMapException;
@@ -33,7 +33,7 @@ public final class StartSimulationAction implements UserAction {
                 1,
                 1000);
         try {
-            simulation.runSimulation(numberOfSimulationCycles);
+            simulation.run(numberOfSimulationCycles);
         } catch (IdleSimulationException | NoFreeSpaceOnMapException e) {
             if (e.getClass() == NoFreeSpaceOnMapException.class) {
                 output.println("Simulation map overflowing occurred.");
@@ -41,9 +41,7 @@ public final class StartSimulationAction implements UserAction {
                 output.println(e.getMessage());
             }
             output.println("Simulation was stopped. Map is reset.");
-            simulation.resetSimulation();
-        } catch (InterruptedException e) {
-            throw new IllegalStateException();
+            simulation.reset();
         }
         return true;
     }

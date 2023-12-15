@@ -3,7 +3,7 @@ package ru.hmp.simulation.exceptions;
 import ru.hmp.simulation.map.SimulationMap;
 import ru.hmp.simulation.model.Entity;
 
-public class NoSuchEntityOnMapFoundException extends ApplicationException {
+public final class NoSuchEntityOnMapFoundException extends ApplicationException {
 
     public NoSuchEntityOnMapFoundException(String message) {
         super(message);

@@ -1,4 +1,4 @@
-package ru.hmp.simulation.useractions;
+package ru.hmp.simulation.usermenuactions;
 
 import ru.hmp.simulation.io.Input;
 

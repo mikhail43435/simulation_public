@@ -5,30 +5,35 @@ import ru.hmp.simulation.model.Entity;
 import ru.hmp.simulation.model.EntityTypes;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 public interface SimulationMap {
-    void clearMap();
+    void clear();
 
-    boolean addEntityToMapToPosition(Entity entity, Position position);
+    boolean addEntity(Entity entity, Position position);
 
-    boolean addEntityToMapToRandomPosition(Entity entity);
+    boolean addEntityToRandomPosition(Entity entity);
 
     boolean addEntityRightNextPosition(Entity entity, Position positionBy);
 
-    void addListOfEntitiesToMapToRandomPosition(List<Entity> entityList);
+    void addEntitiesToRandomPosition(List<Entity> entityList);
 
     Position getEntityPosition(Entity entity);
 
     Optional<Entity> getEntityAtPosition(Position position);
 
-    List<Entity> getClosesEntitiesOfGivenType(Position position, EntityTypes entityTypes);
+    List<Entity> getClosestEntities(Position position, EntityTypes entityTypes);
 
-    List<Entity> getListOfEntityLeft();
+    List<Entity> getNClosestEntities(Position position, EntityTypes entityTypes, int number);
 
-    List<Creature> getListOfEntityCertainTypeLeft(EntityTypes entityType);
+    List<Entity> getListOfEntities();
 
-    List<Entity> getRenewableEntityForGivenCycle(int cycleNumber);
+    List<Creature> getListOfEntities(EntityTypes entityType);
+
+    List<Creature> getMobileEntities();
+
+    List<Entity> getRenewableEntities(int cycleNumber);
 
     boolean updateEntityPosition(Entity entity, Position position);
 
@@ -42,13 +47,19 @@ public interface SimulationMap {
 
     boolean isMapFull();
 
+    Map<String, String> getStatistic();
+
+    Map<String, Integer> getEntitiesCount();
+
     int getCycleNumber();
 
-    void incrementCycleCounter();
+    void startNewCycle();
 
     int getXMapSize();
 
     int getYMapSize();
 
     int[][] getGrid();
+
+    Map<Position, Entity> getChangeTrackerMap();
 }

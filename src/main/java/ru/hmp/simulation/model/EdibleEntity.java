@@ -1,4 +1,4 @@
 package ru.hmp.simulation.model;
 
-public class EdibleEntity extends StaticEntity {
+public abstract class EdibleEntity extends StaticEntity {
 }

@@ -1,5 +1,7 @@
 package ru.hmp.simulation.model;
 
+import ru.hmp.simulation.model.entities.*;
+
 public enum EntityTypes {
     PREDATOR("Predator class", Predator.class),
     HERBIVORE("Herbivore class", Herbivore.class),
@@ -8,9 +10,9 @@ public enum EntityTypes {
     ROCK("Rock class", Rock.class);
 
     private final String className;
-    private final Class classType;
+    private final Class<? extends Entity> classType;
 
-    EntityTypes(String name, Class classType) {
+    EntityTypes(String name, Class<? extends Entity> classType) {
         this.className = name;
         this.classType = classType;
     }
@@ -19,7 +21,7 @@ public enum EntityTypes {
         return className;
     }
 
-    public Class getClassType() {
+    public Class<? extends Entity> getClassType() {
         return classType;
     }
 

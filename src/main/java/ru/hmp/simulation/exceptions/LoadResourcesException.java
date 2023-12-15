@@ -1,6 +1,6 @@
 package ru.hmp.simulation.exceptions;
 
-public class LoadResourcesException extends ApplicationException {
+public final class LoadResourcesException extends ApplicationException {
 
     public LoadResourcesException(String message) {
         super(message);
